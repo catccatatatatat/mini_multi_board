@@ -32,7 +32,7 @@ class UserModel extends ParentsModel {
 			exit();
 		}
 	}
-	// 유저 정보 insert
+	// 유저 정보 insert (회원가입)
 	public function AddUserInfo($arrAddUserInfo) {
 		$sql =
 		" INSERT INTO user ( "

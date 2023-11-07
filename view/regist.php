@@ -8,7 +8,8 @@
 </head>
 <body class="vh-100 vw-100">
 	<?php require_once("view/inc/header.php"); ?>
-
+<!-- 헤더 부분 표시를 위해 require once로 불러줌 -->
+<!-- 폼태그 안에 포스트 값으로 유저 정보를 받아오고 인풋 태그로 삽입할 박스를 만들어줌 -->
 	<main class="d-flex justify-content-center align-items-center h-75">
 		<form style="width: 300px" action="/user/regist" method="POST">
 			<div id="errorMsg" class="form-text text-danger">
