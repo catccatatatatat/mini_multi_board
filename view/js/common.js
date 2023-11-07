@@ -8,3 +8,40 @@
 //     const MODAL = document.querySelector('#modal');
 //     MODAL.classList.add('displayNone');
 // })
+
+let test;
+// 상세 모달 제어
+function openDetail(id){
+    const URL = '/board/detail?id='+id
+    fetch(URL)
+    .then(response => response.json())
+    .then(data => {
+        const TITLE = document.querySelector('#b_title');
+        const CONTENT = document.querySelector('#b_content');
+        const CONTENTCREATETIME = document.querySelector('#b_createtime');
+        const CONTENTUPDATETIME = document.querySelector('#b_updatetime');
+        const IMG = document.querySelector('#b_img');
+        TITLE.innerHTML = data.data.b_title;
+        CONTENT.innerHTML = data.data.b_content;
+        CONTENTCREATETIME.innerHTML = "작성날짜: "+data.data.created_at;
+        CONTENTUPDATETIME.innerHTML = "수정날짜: "+data.data.updated_at;
+        IMG.setAttribute('src',data.data.b_img)
+        openModal();
+    })
+    .catch( error => console.log(error) )
+}
+function openModal() {
+    const MODAL = document.querySelector('#modalDetail');
+    MODAL.classList.add('show');
+    MODAL.style = ('display: block; background-color:rgba(0,0,0,0.7);');
+}
+
+// 모달 닫기 함수
+
+function closeDetailModal() {
+    const MODAL = document.querySelector('#modalDetail');
+    MODAL.classList.remove('show');
+    MODAL.style = ('display: none;');
+
+}
+

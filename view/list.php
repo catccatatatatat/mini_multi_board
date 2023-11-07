@@ -38,10 +38,16 @@
 				<div class="card-body">
 					<h5 class="card-title"><?php echo $item["b_title"] ?></h5>
 					<p class="card-text"><?php echo mb_substr($item["b_content"], 0, 10)."..." ?></p>
-					<button
+					<!-- <button
 						class="btn btn-primary"
 						data-bs-toggle="modal"
 						data-bs-target="#modalDetail"
+						>상세
+					</button> -->
+					<!-- 상세버튼 클릭 후 open detail 로 id값 -->
+					<button
+						class="btn btn-primary"
+						onclick="openDetail(<?php echo $item['id'] ?>); return false;"
 						>상세
 					</button>
 				</div>
@@ -52,20 +58,22 @@
 	</main>
 	
 	<!-- 상세 모달 -->
-	<div class="modal fade" id="modalDetail" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+	<div class="modal fade" id="modalDetail" tabindex="-1"  aria-hidden="true">
 		<div class="modal-dialog modal-dialog-scrollable">
 			<div class="modal-content">
 				<div class="modal-header">
-					<h5 class="modal-title" id="exampleModalLabel">개발자입니다.</h5>
-					<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+					<h5 class="modal-title" id="b_title">개발자입니다.</h5>
+					<button type="button"  onclick="closeDetailModal(); return false;" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
 				</div>
 				<div class="modal-body">
-					<span>살려주세요.</span>
+					<p id="b_createtime">작성일: </p>
+					<p id="b_updatetime">수정일: </p>
+					<span id="b_content">묘우묘우.</span>
 					<br><br>
-					<img src="./img/cat.jpg" class="card-img-top" alt="">
+					<img id="b_img" src="" class="card-img-top" alt="">
 				</div>
 				<div class="modal-footer">
-					<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">닫기</button>
+					<button type="button"onclick="closeDetailModal(); return false;" class="btn btn-secondary" data-bs-dismiss="modal">닫기</button>
 				</div>
 			</div>
 		</div>
