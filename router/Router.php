@@ -4,8 +4,7 @@ namespace router;
 // 사용할 컨트롤러들 지정
 use controller\UserController;
 use controller\BoardController;
-// 보더 컨트롤러 지정 이유는 보더에 게시글에대해 새로 업데이트 할 때 사용하기 위해 해놨음.
-//  new 사용시 무조건 construct 부터 실행
+
 // 라우터 : 유저의 요청을 분석해서 해당 Controller로 연결해주는 클래스
 class Router {
 	public function __construct() {
@@ -35,25 +34,26 @@ class Router {
 				// 해당 컨트롤러 호출
 				new UserController("logoutGet");
 			}
-			// 회원가입 부분
 		} else if($url === "user/regist") {
 			if($method === "GET") {
 				new UserController("registGet");
 			} else {
 				new UserController("registPost");
 			}
+		} else if($url === "user/idchk"){
+			if($method === "POST") {
+				new UserController("idChkPost");
+			}
 		} else if($url === "board/list") {
 			if($method === "GET") {
 				new BoardController("listGet");
 			}
-			// 게시글 추가 부분
 		} else if($url === "board/add") {
 			if($method === "GET") {
 				// 처리없음
 			} else {
 				new BoardController("addPost");
 			}
-			// 상세 페이지 표시 부분
 		} else if($url === "board/detail") {
 			if($method === "GET") {
 				new BoardController("detailGet");
