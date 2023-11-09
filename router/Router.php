@@ -58,7 +58,11 @@ class Router {
 			if($method === "GET") {
 				new BoardController("detailGet");
 			}
-		}
+		}else if($url === "board/delete") {
+            if($method === "GET") {
+                new BoardController("deleteGet");
+            }
+        }
 
 		// 없는 경로일 경우
 		echo "이상한 URL : ".$url;

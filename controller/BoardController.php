@@ -78,14 +78,15 @@ class BoardController extends ParentsController {
 	// 상세 정보 API
 	protected function detailGet() {
 		$id = $_GET["id"];
-		
+
 		$arrBoardDetailInfo = [
 			"id" => $id
 		];
+
 		$boardModel = new BoardModel();
 		$result = $boardModel->getBoardDetail($arrBoardDetailInfo);
 		
-		// 이미지 패스 재설정
+		// 이미 패스 재설정
 		$result[0]["b_img"] = "/"._PATH_USERIMG.$result[0]["b_img"];
 
 		// 레스폰스 데이터 작성
@@ -93,13 +94,27 @@ class BoardController extends ParentsController {
 			"errflg" => "0"
 			,"msg" => ""
 			,"data" => $result[0]
-			
 		];
-		$reponse = json_encode($arrTmp);
-		
-		// reponse 처리
+		$response = json_encode($arrTmp);
+
+		// response 처리
 		header('Content-type: application/json');
-		echo $reponse;
+		echo $response;
 		exit();
 	}
+	protected function deleteGet() {
+        $id = isset($_GET["id"]) ? $_GET["id"] : "";
+        $b_type = isset($_GET["b_type"]) ? $_GET["b_type"] : "";
+        $boardModel = new BoardModel();
+        $boardModel->beginTransaction();
+        $result = $boardModel->getBoardDelete($id);
+        if($result !== true) {
+            $boardModel->rollBack();
+        } else {
+            $boardModel->commit();
+        }
+        // 모델 파기
+        $boardModel->destroy();
+        return "Location: /board/list?b_type=".$b_type;
+    }
 }

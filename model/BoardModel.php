@@ -70,35 +70,52 @@ class BoardModel extends ParentsModel {
 		}
 	}
 
-	// detail 조회
-		public function getBoardDetail($arrBoardDetailInfo) {
-			$sql =
-				" SELECT "
-				." 	id "
-				."	,u_pk "
-				."	,b_title "
-				."	,b_content "
-				."	,b_img "
-				."	,created_at "
-				."	,updated_at "
-				." FROM board "
-				." WHERE "
-				." 		id = :id "
-				;
-	
-			$prepare = [
-				":id" => $arrBoardDetailInfo["id"]
-			];
-	
-			try {
-				$stmt = $this->conn->prepare($sql);
-				$stmt->execute($prepare);
-				$result = $stmt->fetchAll();
-				return $result;
-			} catch (Exception $e) {
-				echo "BoardModel->getBoardDetailList Error : ".$e->getMessage();
-				exit();
-			}
+	// 디테일 조회
+	public function getBoardDetail($arrBoardDetailInfo) {
+		$sql =
+			" SELECT "
+			." 	id "
+			."	,u_pk "
+			."	,b_title "
+			."	,b_content "
+			."	,b_img "
+			."	,created_at "
+			."	,updated_at "
+			." FROM board "
+			." WHERE "
+			." 		id = :id "
+			;
+
+		$prepare = [
+			":id" => $arrBoardDetailInfo["id"]
+		];
+
+		try {
+			$stmt = $this->conn->prepare($sql);
+			$stmt->execute($prepare);
+			$result = $stmt->fetchAll();
+			return $result;
+		} catch (Exception $e) {
+			echo "BoardModel->getBoardDetail Error : ".$e->getMessage();
+			exit();
 		}
-	
+	}
+	public function getBoardDelete($id) {
+        $sql =
+        " UPDATE board "
+        ." SET "
+        ." deleted_at = NOW() "
+        ." WHERE id = :id ";
+        $prepare = [
+            ":id" => $id
+        ];
+        try {
+            $stmt = $this->conn->prepare($sql);
+            $result = $stmt->execute($prepare);
+            return $result;
+        } catch(Exception $e) {
+            echo "BoardModel->getBoardDelete Error: ".$e->getMessage();
+            exit();
+        }
+    }
 }
