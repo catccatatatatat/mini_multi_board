@@ -63,7 +63,6 @@ class Router {
                 new BoardController("deleteGet");
             }
         }
-
 		// 없는 경로일 경우
 		echo "이상한 URL : ".$url;
 		exit();
